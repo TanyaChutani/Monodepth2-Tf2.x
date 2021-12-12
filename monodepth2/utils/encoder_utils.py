@@ -18,15 +18,14 @@ class ResNet_Block(tf.keras.layers.Layer):
         self.conv2_layer = tf.keras.layers.Conv2D(self.filters, 
                                                  3, 
                                                  padding='same',
+                                                 strides=1,
                                                  use_bias=False)
         self.bn2_layer = tf.keras.layers.BatchNormalization(momentum=0.8)
-        self.relu2_layer = tf.keras.layers.ReLU()
         self.conv3_layer = tf.keras.layers.Conv2D(self.filters, 
                                                  1,
                                                  strides=self.strides,
                                                  padding='same',
                                                  use_bias=False)
-        self.relu3_layer = tf.keras.layers.ReLU()
 
     def call(self,
              input_tensor,
@@ -36,11 +35,10 @@ class ResNet_Block(tf.keras.layers.Layer):
         x = self.relu_layer(x)
         x = self.conv2_layer(x)
         x = self.bn2_layer(x, training=training) 
-        x = self.relu2_layer(x)
         if self.downsample:
             y = self.conv3_layer(input_tensor)
             x = x + y
         else:
             x = x + input_tensor
-        x = self.relu3_layer(x)
+        x = self.relu_layer(x)
         return x
