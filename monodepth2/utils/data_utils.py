@@ -1,4 +1,4 @@
-# File copied from monodepth2
+# File copied from monodepth2 (https://github.com/nianticlabs/monodepth2/blob/master/kitti_utils.py)
 
 from __future__ import absolute_import, division, print_function
 
