@@ -1,6 +1,7 @@
 import tensorflow as tf
 
-from monodepth2.utils.loss_utils import Reflection_Pad
+
+from utils.loss_utils import Reflection_Pad
 
 class SSIM_Loss(tf.keras.losses.Loss):
     def __init__(self,
@@ -44,7 +45,7 @@ class SSIM_Loss(tf.keras.losses.Loss):
         numerator = (2 * mean_pred * mean_op + self.C1) * (2 * std_pred_op + self.C2)
         denom = (mean_pred ** 2 + mean_op ** 2 + self.C1) * (std_pred + std_pred + self.C2)
         
-        ssim = (1 - numerator/denom)2
+        ssim = (1 - numerator/denom)
         return tf.clip_by_value(ssim, clip_value_min = 0, clip_value_max = 1)
         
 
